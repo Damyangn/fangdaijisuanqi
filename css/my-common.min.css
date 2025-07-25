@@ -515,7 +515,7 @@ strong {
 }
 
 .ui-btn[skin~=blue] {
-    border-color: #0369aa;
+   border-color: #0369aa;
     border-radius: 4px;
     box-shadow: 0 1px 0 #40c1ff inset;
     background: #26a7ef;
@@ -1417,6 +1417,42 @@ i {
     display: none
 }
 
+  /* =================================== */
+    /* 通用布局容器 (Universal Layout Container) */
+    /* =================================== */
+
+    /* 外层容器居中样式 (这是我们统一的对齐标准) */
+    .container {
+        max-width: 1140px;  /* 设置内容区域的最大宽度 */
+        margin-left: auto;   /* 自动计算左外边距，实现居中 */
+        margin-right: auto;  /* 自动计算右外边距，实现居中 */
+        padding-left: 15px;  /* 在内容区两侧留出一些内边距，防止内容紧贴屏幕边缘 */
+        padding-right: 15px; /* 在内容区两侧留出一些内边距 */
+        width: 100%;         /* 确保容器在小屏幕上能占满宽度 */
+        box-sizing: border-box; /* 让 padding 不会撑大容器的总宽度 */
+    }
+
+    /* =================================== */
+    /* 顶部导航 (Top Navigation) */
+    /* =================================== */
+
+    .top-nav {
+        background-color: #43b244;
+        padding: 20px 0;
+        border-bottom: 1px solid #ddd;
+        width: 100%; /* 导航背景通栏显示 */
+    }
+
+    /* 菜单列表的样式 */
+    .top-nav .main-menu {
+        list-style: none; /* 移除列表默认的小圆点 */
+        margin: 0;        /* 移除 <ul> 的默认外边距 */
+        padding: 0;       /* 移除 <ul> 的默认内边距 */
+        display: flex;    /* 使用 Flexbox 布局，让菜单项水平排列 */
+        align-items: center; /* 垂直居中对齐菜单项 */
+        gap: 30px;        /* 设置菜单项之间的间距 */
+    }
+
 @media (min-width:768px) {
 
     .echo_log_ui_bar,
@@ -1449,10 +1485,19 @@ i {
         padding: 16px 0
     }
 
-    .container {
-        width:75%;
-        min-width: 1200px;
+
+
+    .top-nav .main-menu li {
+        white-space: nowrap; /* 防止菜单项文字换行 */
     }
+
+    .top-nav .main-menu a {
+        text-decoration: none; /* 移除链接的下划线 */
+        color: white;          /* 设置文字颜色为白色 */
+        font-weight: bold;     /* 字体加粗 */
+        font-size: 16px;       /* 设置字体大小 */
+    }
+
 
     .calculator {
         float: left;
@@ -1548,4 +1593,18 @@ i {
     #repay_atc_recmd_mod {
         display: none !important
     }
+
+    /* my-common.min.css */
+    .container {
+      max-width: 1140px;      /* 和首页保持一致 */
+      margin: 0 auto;
+      padding-left: 15px;
+      padding-right: 15px;
+      box-sizing: border-box;
+    }
+
+
 }
+
+
+

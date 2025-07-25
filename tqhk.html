@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="zh-CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>提前还款计算器 - 房贷计算器</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0,minimum-scale=1.0,user-scalable=yes"/>
+  <link rel="stylesheet" type="text/css" href="./css/my-common.min.css?v=20231019"/>
+  <link rel="stylesheet" type="text/css" href="./css/my-houseloan.min.css?v=20231019"/>
+  <style>
+    /* 提前还款计算器页面专属样式 */
+
+    /* 计算器卡片容器 */
+    .calculator-card {
+        background: #ffffff; /* 白色背景 */
+        padding: 25px 35px; /* 增加内边距，让内容更舒展 */
+        border: 1px solid #e5e5e5; /* 浅灰色边框 */
+        border-radius: 8px; /* 圆角 */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* 添加柔和的阴影以提升质感 */
+        margin-top: 20px;
+    }
+
+    /* 计算器标题 H3 */
+    .calculator-card h3 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 24px;
+        color: #333;
+        font-weight: 600;
+    }
+
+    /* 表单表格 */
+    .form-table {
+        width: 100%;
+        border-collapse: collapse; /* 移除表格单元格间距 */
+    }
+
+    .form-table th, .form-table td {
+        padding: 16px 8px; /* 设置单元格内边距，增加行高 */
+        text-align: left;
+        vertical-align: middle;
+        border-bottom: 1px solid #f0f0f0; /* 添加行底部分隔线 */
+    }
+
+    /* 表格左侧的标签列 */
+    .form-table th {
+        width: 160px; /* 固定标签列宽度 */
+        font-weight: normal;
+        color: #555;
+    }
+
+    /* 输入框和下拉选择框 */
+    .form-table input[type="text"],
+    .form-table input[type="number"],
+    .form-table select {
+        width: 130px;
+        padding: 8px 12px; /* 优化输入框大小 */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        transition: border-color 0.2s, box-shadow 0.2s; /* 添加过渡效果 */
+    }
+
+    /* 输入框/选择框获得焦点时的样式 */
+    .form-table input:focus, .form-table select:focus {
+        border-color: #43b244; /* 边框变为主题绿色 */
+        box-shadow: 0 0 0 2px rgba(67, 178, 68, 0.2); /* 添加辉光效果 */
+        outline: none; /* 移除默认的浏览器外轮廓 */
+    }
+
+    /* 输入框后面的单位文字 */
+    .form-table .unit {
+        margin-left: 10px;
+        color: #666;
+    }
+
+    /* 单选按钮组 */
+    .form-table .radio-group label {
+        margin-right: 25px;
+        cursor: pointer;
+        color: #333;
+    }
+
+    /* 按钮容器 */
+    .btn-group {
+        text-align: center;
+        margin-top: 35px;
+    }
+
+    /* 按钮通用样式 */
+    .btn {
+        padding: 10px 35px;
+        border: 1px solid #ccc;
+        background-color: #f0f0f0;
+        color: #333;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        margin: 0 10px;
+        transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    /* 主按钮（绿色） */
+    .btn-primary {
+        background-color: #43b244;
+        color: #ffffff;
+        border-color: #43b244;
+        font-weight: bold;
+    }
+    .btn-primary:hover {
+        background-color: #3a9d3b; /* 鼠标悬停时颜色变深 */
+        border-color: #3a9d3b;
+    }
+    .btn:hover {
+        background-color: #e0e0e0;
+    }
+
+
+    /* 结果显示区域 */
+    .results-section {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px dashed #ccc; /* 添加虚线上边框作为分隔 */
+    }
+
+    /* 结果区域的只读输入框 */
+    .results-section input {
+        background-color: #f9f9f9; /* 给结果输入框一个不同的背景色 */
+        color: #d9534f; /* 结果文字用红色突出显示 */
+        font-weight: bold;
+        border-color: #eee;
+    }
+
+    /* 底部备注信息 */
+    .result-note {
+        text-align: center;
+        color: #888;
+        font-size: 14px;
+        margin-top: 25px;
+    }
+</style>
+
+</head>
+<body>
+
+<div class="top-nav">
+  <div class="container">
+    <ul class="main-menu">
+      <li><a href="/">首页</a></li>
+      <li><a href="/news.html">房贷资讯</a></li>
+      <li><a href="/tqhk.html">提前还款计算器</a></li>
+      <li><a href="/about.html">关于</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="header">
+  <div class="container">
+    <div class="logo">
+      <a href="#"><img src="./images/logo.png" style="width: 240px;height: 60px;" alt="房贷计算器"></a>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="margin-bottom: 30px;">
+  <div class="calculator-card">
+    <h3>提前还款计算器</h3>
+    <form id="calculator-form">
+      <table class="form-table">
+        <tbody>
+        <tr>
+          <th>原贷款方式</th>
+          <td>
+            <div class="radio-group">
+              <label><input type="radio" name="original_method" value="1" checked> 等额本息</label>
+              <label><input type="radio" name="original_method" value="2"> 等额本金</label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>原贷款金额</th>
+          <td><input type="number" id="original_amount" value="100"> <span class="unit">万元</span></td>
+        </tr>
+        <tr>
+          <th>原贷款期限</th>
+          <td><input type="number" id="original_term" value="20"> <span class="unit">年</span></td>
+        </tr>
+        <tr>
+          <th>商业贷款利率</th>
+          <td><input type="number" id="loan_rate" step="0.01" value="4.90"> <span class="unit">%</span></td>
+        </tr>
+        <tr>
+          <th>第一次还款时间</th>
+          <td>
+            <select id="first_repay_year"></select><span class="unit">年</span>
+            <select id="first_repay_month"></select><span class="unit">月</span>
+          </td>
+        </tr>
+        <tr>
+          <th>预计提前还款时间</th>
+          <td>
+            <select id="prepay_year"></select><span class="unit">年</span>
+            <select id="prepay_month"></select><span class="unit">月</span>
+          </td>
+        </tr>
+        <tr>
+          <th>还款方式</th>
+          <td>
+            <div class="radio-group">
+              <label><input type="radio" name="prepay_type" value="full" checked> 一次性提前还清</label>
+              <label><input type="radio" name="prepay_type" value="partial"> 部分提前还款</label>
+            </div>
+          </td>
+        </tr>
+        <tr id="partial_prepay_amount_row" style="display: none;">
+          <th>提前还款金额</th>
+          <td><input type="number" id="prepay_amount" value="5"> <span class="unit">万元</span></td>
+        </tr>
+        <tr id="partial_prepay_handle_row" style="display: none;">
+          <th>处理方式</th>
+          <td>
+            <div class="radio-group">
+              <label><input type="radio" name="handle_type" value="shorten_term" checked> 缩短还款期限，月还款额不变</label><br>
+              <label style="margin-top:10px; display:inline-block;"><input type="radio" name="handle_type" value="lower_payment"> 减少月还款额，还款期限不变</label>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="btn-group">
+        <button id="calculate_btn" class="btn btn-primary" type="button">计算</button>
+        <button type="reset" class="btn">重置</button>
+      </div>
+    </form>
+
+    <div class="results-section">
+      <table class="form-table">
+        <tbody>
+        <tr><th>已还利息总额</th><td><input type="text" id="result_interest_paid" readonly> <span class="unit">元</span></td></tr>
+        <tr><th>已还款总额</th><td><input type="text" id="result_total_paid" readonly> <span class="unit">元</span></td></tr>
+        <tr><th>节省利息支出</th><td><input type="text" id="result_interest_saved" readonly> <span class="unit">元</span></td></tr>
+        <tr><th>该月还款额</th><td><input type="text" id="result_current_month_payment" readonly> <span class="unit">元</span></td></tr>
+        <tr><th>下月起月还款额</th><td><input type="text" id="result_new_monthly_payment" readonly> <span class="unit">元</span></td></tr>
+        <tr><th>新的最后还款期</th><td><input type="text" id="result_new_final_date" readonly></td></tr>
+        </tbody>
+      </table>
+      <p class="result-note">※ 计算结果仅供参考，实际请以银行审批为准</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  &copy; copyright by <a href="https://fangdaijisuanqi.vip/?ref=github">房贷计算器</a>
+</div>
+
+<script type="text/javascript" src="./js/zepto.min.js"></script>
+<script type="text/javascript" src="./js/tqhk_calculator.js"></script>
+<script>
+  // 脚本部分保持不变
+  $('#calculator-form')[0].addEventListener('reset', function () {
+    $('#partial_prepay_amount_row').hide();
+    $('#partial_prepay_handle_row').hide();
+    $('#result_interest_paid').val('');
+    $('#result_total_paid').val('');
+    $('#result_interest_saved').val('');
+    $('#result_current_month_payment').val('');
+    $('#result_new_monthly_payment').val('');
+    $('#result_new_final_date').val('');
+  });
+  function populateYearMonth() {
+    const yearSelects = [$('#first_repay_year'), $('#prepay_year')];
+    const monthSelects = [$('#first_repay_month'), $('#prepay_month')];
+    const currentYear = new Date().getFullYear();
+    for (let i = 2000; i <= currentYear + 10; i++) {
+      const option = `<option value="${i}">${i}</option>`;
+      yearSelects.forEach(select => select.append(option));
+    }
+    for (let m = 1; m <= 12; m++) {
+      const mm = m < 10 ? '0' + m : m;
+      const option = `<option value="${m}">${m}</option>`;
+      monthSelects.forEach(select => select.append(option));
+    }
+    $('#first_repay_year').val('2015');
+    $('#first_repay_month').val('1');
+    $('#prepay_year').val('2015');
+    $('#prepay_month').val('1');
+  }
+  populateYearMonth();
+  $('#calculator-form')[0].addEventListener('reset', function () {
+    $('#partial_prepay_amount_row').hide();
+    $('#partial_prepay_handle_row').hide();
+    $('#result_interest_paid').val('');
+    $('#result_total_paid').val('');
+    $('#result_interest_saved').val('');
+    $('#result_current_month_payment').val('');
+    $('#result_new_monthly_payment').val('');
+    $('#result_new_final_date').val('');
+    setTimeout(() => {
+      $('#first_repay_year').val('2015');
+      $('#first_repay_month').val('1');
+      $('#prepay_year').val('2015');
+      $('#prepay_month').val('1');
+    }, 0);
+  });
+</script>
+</body>
+</html>
