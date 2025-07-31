@@ -65,8 +65,8 @@ h3 {
 }
 
 p {
-    font-size: 12px;
-    line-height: 1.2;
+    font-size: 13px;
+    line-height: 1.4;
 }
 
 .switch-tabs {
@@ -393,3 +393,10 @@ p {
     vertical-align: middle !important; /* 垂直居中 */
     padding: 8px 5px !important;       /* 设置统一的内边距 */
 }
+/*=============================*/
+/* 防止正文变大导致菜单错位 */
+body {
+  overflow-x: hidden;
+}
+
+
